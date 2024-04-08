@@ -1,21 +1,19 @@
 def solution(participant, completion):
-    participant_count = {}
-    completion_count = {}
+    # participant와 completion 리스트를 정렬합니다.
+    participant.sort()
+    completion.sort()
+    
+    # completion 리스트의 길이만큼 반복하여,
+    # participant와 completion을 비교하여 완주하지 못한 참가자를 찾습니다.
+    for i in range(len(completion)):
+        if participant[i] != completion[i]:
+            return participant[i]
+    
+    # 만약 위 반복문에서 완주하지 못한 참가자가 발견되지 않으면,
+    # participant 리스트의 마지막 요소가 완주하지 못한 참가자입니다.
+    return participant[-1]
 
-    # Count occurrences in participant list
-    for name in participant:
-        participant_count[name] = participant_count.get(name, 0) + 1
-
-    # Count occurrences in completion list
-    for name in completion:
-        completion_count[name] = completion_count.get(name, 0) + 1
-
-    # Check for excess participants
-    for name, count in participant_count.items():
-        if count > completion_count.get(name, 0):
-            return name
-
-participant = ["Alice", "Bob", "Alice", "Charlie"]
-completion = ["Bob", "Charlie"]
-
-print(solution(participant, completion))  # Output: "Alice"
+# 테스트를 위한 예시 입력
+participant = ["leo", "kiki", "eden"]
+completion = ["eden", "kiki"]
+print(solution(participant, completion))  # 출력: "leo"
