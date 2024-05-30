@@ -21,14 +21,19 @@ def solution(park, routes):
     park_length = [row, col]
     
     for route in routes:
+        # ex) ['E', '2']
         target = route.split()
+        # 방향 저장
         direction = target[0]
+        # 이동 크기 저장
         move = int(target[1])
         
-        # 이동 전 위치 저장
-        before = current[:]
+        # 조건이 안맞을 때 초기화를 위해 이동 전 위치를 임시 저장
+        before = current.copy()
+        print(before)
         
         for _ in range(move):
+            # 방향으로 1씩 추가
             if direction == 'E':
                 current[1] += 1
             elif direction == 'W':
@@ -38,14 +43,14 @@ def solution(park, routes):
             elif direction == 'N':
                 current[0] -= 1
             
-            # 경계 체크
+            # 조건 1 : 공원 벗어났는지 체크해서 벗어났으면 초기화
             if not (0 <= current[0] < col and 0 <= current[1] < row):
                 current = before
                 break
             
-            # 장애물 체크
-            if park[current[0]][current[1]] == 'X':
+            # 조건 2 : 현재 위치가 장애물 위치랑 같으면 초기화
+            if park[current[0]][current[1]] == 'X':  
                 current = before
                 break
-    
+                
     return current
